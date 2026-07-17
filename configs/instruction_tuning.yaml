@@ -1,0 +1,42 @@
+task: instruction_tuning
+model:
+  vocab_size: 50257
+  max_sequence_length: 256
+  embedding_dim: 384
+  hidden_dim: 1536
+  num_attention_heads: 6
+  num_layers: 6
+  num_relative_positions: 256
+  dropout: 0.0
+training:
+  batch_size: 8
+  total_steps: 1000
+  checkpoint_every: 100
+  log_every: 10
+  max_learning_rate: 0.00003
+  min_learning_rate: 0.000003
+  warmup_steps: 50
+  weight_decay: 0.0
+  gradient_clip_norm: 1.0
+  seed: 42
+  amp: true
+  compile_model: true
+  init_from: hf://argo11/hiro-llm-pretrain/checkpoint-00010000.pt
+data:
+  kind: instruction
+  source_type: local
+  source: data/raw/sample_instructions.jsonl
+  output_dir: data/processed/instruction
+  tokenizer: gpt2
+  prompt_field: prompt
+  response_field: response
+  prompt_template: "<user>{prompt}<assistant>"
+  eos_text: <|endoftext|>
+vision: {}
+hub:
+  repo_id: argo11/hiro-llm-instruction
+  private: false
+  token_env: HF_TOKEN
+runtime:
+  device: auto
+  num_workers: 0

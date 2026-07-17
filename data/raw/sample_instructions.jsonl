@@ -1,0 +1,4 @@
+{"prompt":"What does a causal mask do?","response":"It prevents each token from attending to future tokens."}
+{"prompt":"Why save configuration in a checkpoint?","response":"It records the model and training settings needed to reproduce or resume the run."}
+{"prompt":"What connects an image encoder to a language model?","response":"A learned projector maps image features into the language model embedding space."}
+

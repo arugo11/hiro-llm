@@ -1,0 +1,47 @@
+task: vision_instruction_tuning
+model:
+  vocab_size: 50257
+  max_sequence_length: 512
+  embedding_dim: 384
+  hidden_dim: 1536
+  num_attention_heads: 6
+  num_layers: 6
+  num_relative_positions: 256
+  dropout: 0.0
+training:
+  batch_size: 4
+  total_steps: 1000
+  checkpoint_every: 100
+  log_every: 10
+  max_learning_rate: 0.00001
+  min_learning_rate: 0.000001
+  warmup_steps: 50
+  weight_decay: 0.0
+  gradient_clip_norm: 1.0
+  seed: 42
+  amp: true
+  compile_model: true
+  init_from: hf://argo11/hiro-llm-vision-pretrain/checkpoint-00005000.pt
+data:
+  kind: vision
+  source_type: local
+  source: data/raw/sample_vision.jsonl
+  image_root: data/raw
+  output_dir: data/processed/vision_instruction
+  tokenizer: gpt2
+  prompt_field: prompt
+  response_field: response
+  image_field: image
+  prompt_template: "<user>{prompt}<assistant>"
+  eos_text: <|endoftext|>
+vision:
+  encoder_name: openai/clip-vit-large-patch14
+  num_image_tokens: 256
+  projector_hidden_dim: 1024
+hub:
+  repo_id: argo11/hiro-llm-vision-instruction
+  private: false
+  token_env: HF_TOKEN
+runtime:
+  device: auto
+  num_workers: 0

@@ -1,0 +1,7 @@
+task: pretrain
+variant: embed768
+model: {vocab_size: 50257, max_sequence_length: 256, embedding_dim: 768, hidden_dim: 1024, num_attention_heads: 12, num_layers: 6, num_relative_positions: 256}
+training: {batch_size: 16, total_steps: 10000, checkpoint_every: 1000, log_every: 50, max_learning_rate: 0.0003, min_learning_rate: 0.00003, warmup_steps: 500, amp: true}
+data: {kind: text, source_type: http, source: https://www.gutenberg.org/files/100/100-0.txt, source_filename: shakespeare.txt, output_dir: data/processed/shakespeare, tokenizer: gpt2, validation_fraction: 0.1, seed: 42}
+hub: {repo_id: argo11/hiro-llm-embed768-shakespeare}
+wandb: {enabled: true, project: hiro-llm, run_name: embed768-shakespeare-pretrain-10000}

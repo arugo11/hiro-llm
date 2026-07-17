@@ -1,0 +1,7 @@
+task: instruction_tuning
+variant: hidden3072
+model: {vocab_size: 50257, max_sequence_length: 256, embedding_dim: 256, hidden_dim: 3072, num_attention_heads: 8, num_layers: 6, num_relative_positions: 256}
+training: {batch_size: 8, total_steps: 5000, checkpoint_every: 500, log_every: 50, max_learning_rate: 0.0003, min_learning_rate: 0.00003, warmup_steps: 500, amp: true, init_from: hf://argo11/hiro-llm-hidden3072-tinystories/checkpoint-00010000.pt}
+data: {kind: instruction, source_type: huggingface, source: HuggingFaceTB/smol-smoltalk, split: train, output_dir: data/processed/smoltalk, tokenizer: gpt2, prompt_template: "<user>{prompt}<assistant>"}
+hub: {repo_id: argo11/hiro-llm-hidden3072-smoltalk}
+wandb: {enabled: true, project: hiro-llm, run_name: hidden3072-smoltalk-sft}

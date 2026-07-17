@@ -1,0 +1,48 @@
+[build-system]
+requires = ["hatchling>=1.27"]
+build-backend = "hatchling.build"
+
+[project]
+name = "hiro-llm"
+version = "0.1.0"
+description = "A standalone decoder-only language and vision-language model training project"
+readme = "README.md"
+requires-python = ">=3.12,<3.13"
+license = { text = "MIT" }
+dependencies = [
+  "huggingface-hub>=0.28,<1.0",
+  "numpy>=2.0,<3.0",
+  "pyyaml>=6.0,<7.0",
+  "tiktoken>=0.8,<1.0",
+  "torch>=2.6,<2.7",
+  "datasets>=3.2,<4.0",
+  "wandb>=0.19,<1.0",
+]
+
+[project.optional-dependencies]
+vision = [
+  "pillow>=11.0,<12.0",
+  "transformers>=4.48,<5.0",
+]
+dev = [
+  "build>=1.2",
+  "pytest>=8.3",
+  "ruff>=0.9",
+]
+
+[project.scripts]
+hiro-llm = "hiro_llm.cli:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/hiro_llm"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B"]
+ignore = ["E501"]

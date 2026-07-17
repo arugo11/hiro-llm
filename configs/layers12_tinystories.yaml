@@ -1,0 +1,7 @@
+task: pretrain
+variant: layers12
+model: {vocab_size: 50257, max_sequence_length: 256, embedding_dim: 256, hidden_dim: 1024, num_attention_heads: 8, num_layers: 12, num_relative_positions: 256}
+training: {batch_size: 16, total_steps: 10000, checkpoint_every: 1000, log_every: 50, max_learning_rate: 0.0003, min_learning_rate: 0.00003, warmup_steps: 500, amp: true, init_from: hf://argo11/hiro-llm-layers12-shakespeare/checkpoint-00010000.pt}
+data: {kind: text, source_type: huggingface, source: roneneldan/TinyStories, split: train, output_dir: data/processed/tinystories, tokenizer: gpt2, prompt_field: text, validation_fraction: 0.1}
+hub: {repo_id: argo11/hiro-llm-layers12-tinystories}
+wandb: {enabled: true, project: hiro-llm, run_name: layers12-tinystories-adaptation}
