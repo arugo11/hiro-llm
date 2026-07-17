@@ -32,6 +32,24 @@ python -m pip install -e ".[vision,dev]"
 
 `uv` を使う場合は `uv sync --extra vision --extra dev` でも構築できます。
 
+### Dev Container
+
+Docker と Dev Container 対応エディターがあれば、clone 後に「Reopen in Container」を実行するだけで Python と Typst の環境を再現できます。
+初回作成時には `uv sync --frozen --all-extras` が自動で実行されます。
+
+## Typst で執筆する
+
+文書のエントリーポイントは `docs/main.typ`、共通レイアウトは `docs/template.typ` です。
+
+```bash
+make typst-build
+make typst-watch
+```
+
+PDF は `build/main.pdf` に生成されます。
+main への push と main 向け pull request では、Typst CI が同じ Dev Container イメージを使って文書をコンパイルします。
+生成した PDF は workflow の `typst-document` artifact から取得できます。
+
 ## ディレクトリ
 
 - `configs/`: 再現可能なYAML設定
