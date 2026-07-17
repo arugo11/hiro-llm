@@ -1,0 +1,11 @@
+.git
+.venv
+.pytest_cache
+.ruff_cache
+.typst-cache
+build
+data/processed
+dist
+models/checkpoints
+wandb
+wandb_offline

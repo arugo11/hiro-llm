@@ -1,0 +1,31 @@
+{
+  "name": "hiro-llm",
+  "build": {
+    "dockerfile": "Dockerfile",
+    "context": "..",
+    "args": {
+      "TYPST_VERSION": "0.15.1"
+    }
+  },
+  "remoteUser": "vscode",
+  "containerEnv": {
+    "UV_LINK_MODE": "copy"
+  },
+  "postCreateCommand": "uv sync --frozen --all-extras && typst --version",
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "charliermarsh.ruff",
+        "ms-python.python",
+        "myriad-dreamin.tinymist"
+      ],
+      "settings": {
+        "[typst]": {
+          "editor.formatOnSave": true,
+          "editor.defaultFormatter": "myriad-dreamin.tinymist"
+        },
+        "python.defaultInterpreterPath": "${containerWorkspaceFolder}/.venv/bin/python"
+      }
+    }
+  }
+}
